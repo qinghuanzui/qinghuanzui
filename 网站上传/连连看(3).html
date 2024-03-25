@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>随机数</title>
+		<link rel="stylesheet" href="./css/连连看(3).css">
+	</head>
+	<body>
+		<p id="tishi">这里是提示！请点击随机刷新</p>
+		<div id="waicen">
+			<div class="neicen01">01</div>
+			<div class="neicen01">02</div>
+			<div class="neicen01">02</div>
+			<br>
+			<div class="neicen02">04</div>
+			<div class="neicen02">05</div>
+			<div class="neicen02">06</div>
+			<br>
+			<div class="neicen03">07</div>
+			<div class="neicen03">08</div>
+			<div class="neicen03">09</div>
+		</div>
+		<button class="sx" onclick="fankai()()">随机刷新</button>
+		<script>
+			function suiji(min, max) {
+				min = Math.ceil(min); // (包括)对最小值进行上取整，确保它是整数  
+				max = Math.floor(max); // (不包括)对最大值进行下取整，确保它是整数  
+				return Math.floor(Math.random() * (max - min + 1)) + min; // 生成随机整数  
+			}
+			var a = suiji(1, 100);
+			var x = document.getElementById('waicen');
+			var y = x.querySelectorAll('div');
+			var tishi = document.getElementById('tishi');
+
+			function fankai() {
+				var arr = [];
+				for (let t = 0; t < y.length; t++) {
+					var arr1 = y[t].textContent = suiji(1, 100);
+					arr.push(arr1);
+				}
+				console.log(arr);
+				var duplicates = []; // 用于存储重复元素的数组
+				// 遍历数组
+				for (var i = 0; i < arr.length; i++) {
+					// 从当前元素的下一个元素开始遍历，检查是否有重复  
+					for (var j = i + 1; j < arr.length; j++) {
+						if (arr[i] === arr[j]) {
+							// 如果找到重复元素，则添加到duplicates数组中  
+							if (duplicates.indexOf(arr[i]) === -1) {
+								duplicates.push(arr[i]);
+							}
+							// 可以选择跳出内层循环，因为我们已经找到了一个重复  
+							break;
+						}
+					}
+				}
+				var ts = tishi.innerHTML = "请注意查看：" + duplicates;
+				console.log(duplicates); // 返回包含重复元素的数组
+			}
+
+			// x.querySelectorAll('div').forEach(y=>{
+			// 	y.innerHTML=a;
+			// })
+		</script>
+	</body>
+</html>
